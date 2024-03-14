@@ -21,7 +21,7 @@ jobs:
         #     matrix: 
         #         client: ${{ fromJSON(needs.job1.outputs.matrix) }}
         steps:
-            - run: echo ${{ needs.job1.outputs.client }}
+            - run: echo ${{ needs.job1.outputs.matrix }}
     
     do:
         runs-on: ubuntu-latest
