@@ -18,5 +18,6 @@ jobs:
               uses: jannekem/run-python-script-action@v1
               with:
                 script: |
-                  for item in """${{secrets.CLIENTS}}""":
+                  import json
+                  for item in json.loads("""${{secrets.CLIENTS}}"""):
                     print(item)
