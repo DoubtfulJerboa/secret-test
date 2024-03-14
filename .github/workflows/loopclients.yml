@@ -12,7 +12,9 @@ jobs:
           matrix: ${{ steps.set-matrix.outputs.matrix }}
         steps:
           - id: set-matrix
-            run: echo 'matrix=${{vars.CLIENTSJSON}}' >> $GITHUB_OUTPUT
+            env:
+                CLIENTJSON: ${{vars.CLIENTJSON}}
+            run: echo 'matrix=$CLIENTJSON' >> $GITHUB_OUTPUT
     
     matrixotest:
         needs: job1
