@@ -10,15 +10,21 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: echo "foooobar"
-            - run: echo "${{ secrets.CLIENTS }}"
-            - uses: actions/setup-python@v4
-              with:
-                python-version: '3.x'
-            - name: python shiz
-              uses: jannekem/run-python-script-action@v1
-              with:
-                script: |
-                  import json
-                  print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
-                  for item in json.loads("""${{secrets.CLIENTS}}"""):
-                    print(item)
+            - run: echo '${{ secrets.CLIENTS }}'
+            # - uses: actions/setup-python@v4
+            #   with:
+            #     python-version: '3.x'
+            # - name: python shiz
+            #   uses: jannekem/run-python-script-action@v1
+            #   with:
+            #     script: |
+            #       import json
+            #       print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
+            #       for item in json.loads("""${{secrets.CLIENTS}}"""):
+            #         print(item)
+            - run: |
+                declare -a clients=(${{secrets.CLIENTS}})
+                for i in "${clients}"
+                do
+                    echo "$i"
+                done
