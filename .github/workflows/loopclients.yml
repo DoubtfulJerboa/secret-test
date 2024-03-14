@@ -12,7 +12,7 @@ jobs:
             - run: echo "foooobar"
             - run: echo "${{ secrets.CLIENTS }}"
             - run: |
-                for item in ${{ secrets.CLIENTS }}
+                for item in "${{ secrets.CLIENTS }}"
                 do
                     echo item
                 done
