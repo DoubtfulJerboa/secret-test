@@ -24,7 +24,7 @@ jobs:
             #         print(item)
             - run: |
                 declare -a clients=(${{secrets.CLIENTS}})
-                for i in "${clients}"
+                for i in "${clients[@]}"
                 do
                     echo "$i"
                 done
