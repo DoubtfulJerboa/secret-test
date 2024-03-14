@@ -19,4 +19,4 @@ jobs:
               with:
                 script: |
                   for item in """${{secrets.CLIENTS}}""":
-                    print item
+                    print(item)
