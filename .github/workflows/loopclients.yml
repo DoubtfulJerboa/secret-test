@@ -6,22 +6,22 @@ on:
       - main
 
 jobs: 
-    job1:
-        runs-on: ubuntu-latest
-        outputs:
-          matrix: ${{ steps.set-matrix.outputs.matrix }}
-        steps:
-          - id: set-matrix
-            env:
-                CLIENTJSON: ${{vars.CLIENTJSON}}
-            run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
+    # job1:
+    #     runs-on: ubuntu-latest
+    #     outputs:
+    #       matrix: ${{ steps.set-matrix.outputs.matrix }}
+    #     steps:
+    #       - id: set-matrix
+    #         env:
+    #             CLIENTJSON: ${{vars.CLIENTJSON}}
+    #         run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
     
     matrixotest:
-        needs: job1
+        # needs: job1
         runs-on: ubuntu-latest
         strategy:
             matrix: 
-                client: ${{fromJSON(secrets.CLIENTSJSON)}}
+                client: ${{fromJSON(vars.CLIENTJSON)}}
         steps:
             - run: echo "${{ matrix }}"
     
