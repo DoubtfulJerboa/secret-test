@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix: 
-                client: ${{vars.CLIENTJSON}}
+                client: matrix=${{vars.CLIENTJSON}}
         steps:
             - run: echo "${{ matrix }}"
     
