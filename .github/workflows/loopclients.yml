@@ -19,5 +19,6 @@ jobs:
               with:
                 script: |
                   import json
+                  print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
                   for item in json.loads("""${{secrets.CLIENTS}}"""):
                     print(item)
