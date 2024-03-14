@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: echo "foooobar"
-            - run: echo ${{ secrets.CLIENTS }}
+            - run: echo "${{ secrets.CLIENTS }}"
             - run: |
                 for item in ${{ secrets.CLIENTS }}
                 do
