@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix: 
-                client: ${{fromJSON(vars.CLIENTJSON)}}
+                client: ${{fromJSON(secrets.CLIENTSJSON)}}
         steps:
             - run: echo "${{ matrix }}"
     
