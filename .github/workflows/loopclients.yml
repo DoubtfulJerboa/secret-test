@@ -11,8 +11,12 @@ jobs:
         steps:
             - run: echo "foooobar"
             - run: echo "${{ secrets.CLIENTS }}"
-            - run: |
-                for item in "${{ secrets.CLIENTS }}"
-                do
-                    echo $item
-                done
+            - uses: actions/setup-python@v4
+              with:
+                python-version: '3.x'
+            - name: python shiz
+              uses: jannekem/run-python-script-action@v1
+              with:
+                script: |
+                  for item in "${{secrets.CLIENTS}}":
+                    print item
