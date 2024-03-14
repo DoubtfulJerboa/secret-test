@@ -17,11 +17,11 @@ jobs:
     matrixotest:
         needs: job1
         runs-on: ubuntu-latest
-        strategy:
-            matrix: 
-                client: ${{ fromJSON(needs.job1.outputs.matrix) }}
+        # strategy:
+        #     matrix: 
+        #         client: ${{ fromJSON(needs.job1.outputs.matrix) }}
         steps:
-            - run: echo ${{ matrix.client }}
+            - run: echo ${{ needs.job1.outputs.client }}
     
     do:
         runs-on: ubuntu-latest
