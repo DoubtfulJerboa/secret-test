@@ -13,7 +13,7 @@ jobs:
         steps:
           - id: set-matrix
             env:
-                CLIENTJSON: ${{secrets.CLIENTSJSON}}
+                CLIENTJSON: ${{vars.CLIENTJSON}}
             run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
     
     matrixotest:
@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix: 
-                client: ${{ fromJSON(needs.job1.outputs.matrix) }}
+                client: ${{vars.CLIENTJSON}}
         steps:
             - run: echo "${{ matrix }}"
     
