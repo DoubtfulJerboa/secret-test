@@ -6,6 +6,23 @@ on:
       - main
 
 jobs: 
+    job1:
+        runs-on: ubuntu-latest
+        outputs:
+          matrix: ${{ steps.set-matrix.outputs.matrix }}
+        steps:
+          - id: set-matrix
+            run: echo "matrix=${{secrets.CLIENTSJSON}}" >> $GITHUB_OUTPUT
+    
+    matrixotest:
+        needs: job1
+        runs-on: ubuntu-latest
+        strategy:
+            matrix: 
+                client: ${{ fromJSON(needs.job1.outputs.matrix) }}
+        steps:
+            - run: echo ${{ matrix.client }}
+    
     do:
         runs-on: ubuntu-latest
         steps:
@@ -22,6 +39,8 @@ jobs:
             #       print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
             #       for item in json.loads("""${{secrets.CLIENTS}}"""):
             #         print(item)
+
+            # this only works for single line entries "one" "two" "three"
             - run: |
                 declare -a clients=(${{secrets.CLIENTS}})
                 for i in "${clients[@]}"
