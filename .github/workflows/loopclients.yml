@@ -13,7 +13,7 @@ jobs:
         steps:
           - id: set-matrix
             env:
-                CLIENTJSON: ${{vars.CLIENTJSON}}
+                CLIENTJSON: ${{secrets.CLIENTSJSON}}
             run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
     
     matrixotest:
