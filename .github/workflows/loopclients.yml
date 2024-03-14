@@ -14,5 +14,5 @@ jobs:
             - run: |
                 for item in "${{ secrets.CLIENTS }}"
                 do
-                    echo item
+                    echo $item
                 done
