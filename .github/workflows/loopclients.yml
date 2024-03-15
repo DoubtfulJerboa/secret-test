@@ -6,6 +6,14 @@ on:
       - main
 
 jobs: 
+    matrixenvironments:
+        strategy:
+            matrix: 
+                enviro: ["Enviro1", "Customer"]
+        runs-on: ubuntu-latest
+        environment: ${{ matrix.enviro }}
+        steps:
+            - run: echo '${{secrets.SECRET}}'
     secretstoenv:
         runs-on: ubuntu-latest
         steps:
