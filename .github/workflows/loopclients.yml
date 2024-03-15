@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: |
-                echo $"ALLSECRETS"
+                echo "$ALLSECRETS"
               shell: bash
               env:
                 ALLSECRETS: ${{ toJson(secrets) }}
