@@ -6,6 +6,13 @@ on:
       - main
 
 jobs: 
+    secretstoenv:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo $"ALLSECRETS"
+              env:
+                ALLSECRETS: ${{ toJson(secrets) }}
     # job1:
     #     runs-on: ubuntu-latest
     #     outputs:
