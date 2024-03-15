@@ -11,9 +11,11 @@ jobs:
         steps:
             - run: |
                 echo "$ALLSECRETS"
+                echo "$CLIENTS"
               shell: bash
               env:
                 ALLSECRETS: ${{ toJson(secrets) }}
+                CLIENTS: ${{toJson(secrets.CLIENTSJSON)}}
     # job1:
     #     runs-on: ubuntu-latest
     #     outputs:
