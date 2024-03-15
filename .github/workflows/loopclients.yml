@@ -11,6 +11,7 @@ jobs:
         steps:
             - run: |
                 echo $"ALLSECRETS"
+              shell: bash
               env:
                 ALLSECRETS: ${{ toJson(secrets) }}
     # job1:
