@@ -7,6 +7,8 @@ on:
 
 jobs: 
     matrixenvironments:
+        # this method is able to repeat the job for every environment
+        # this would then have every customer as an environment within the repo, with all their secrets per environment
         strategy:
             matrix: 
                 enviro: ["Enviro1", "Customer"]
@@ -14,16 +16,16 @@ jobs:
         environment: ${{ matrix.enviro }}
         steps:
             - run: echo '${{secrets.SECRET}}'
-    secretstoenv:
-        runs-on: ubuntu-latest
-        steps:
-            - run: |
-                echo "$ALLSECRETS"
-                echo "$CLIENTS"
-              shell: bash
-              env:
-                ALLSECRETS: ${{ toJson(secrets) }}
-                CLIENTS: ${{toJson(secrets.CLIENTSJSON)}}
+    # secretstoenv:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - run: |
+    #             echo "$ALLSECRETS"
+    #             echo "$CLIENTS"
+    #           shell: bash
+    #           env:
+    #             ALLSECRETS: ${{ toJson(secrets) }}
+    #             CLIENTS: ${{toJson(secrets.CLIENTSJSON)}}
     # job1:
     #     runs-on: ubuntu-latest
     #     outputs:
@@ -34,36 +36,36 @@ jobs:
     #             CLIENTJSON: ${{vars.CLIENTJSON}}
     #         run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
     
-    matrixotest:
-        # needs: job1
-        runs-on: ubuntu-latest
-        strategy:
-            matrix: 
-                client: ${{fromJSON(vars.CLIENTJSON)}}
-        steps:
-            - run: echo "${{ matrix }}"
+    # matrixotest:
+    #     # needs: job1
+    #     runs-on: ubuntu-latest
+    #     strategy:
+    #         matrix: 
+    #             client: ${{fromJSON(vars.CLIENTJSON)}}
+    #     steps:
+    #         - run: echo "${{ matrix }}"
     
-    do:
-        runs-on: ubuntu-latest
-        steps:
-            - run: echo "foooobar"
-            - run: echo '${{ secrets.CLIENTS }}'
-            # - uses: actions/setup-python@v4
-            #   with:
-            #     python-version: '3.x'
-            # - name: python shiz
-            #   uses: jannekem/run-python-script-action@v1
-            #   with:
-            #     script: |
-            #       import json
-            #       print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
-            #       for item in json.loads("""${{secrets.CLIENTS}}"""):
-            #         print(item)
+    # do:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - run: echo "foooobar"
+    #         - run: echo '${{ secrets.CLIENTS }}'
+    #         # - uses: actions/setup-python@v4
+    #         #   with:
+    #         #     python-version: '3.x'
+    #         # - name: python shiz
+    #         #   uses: jannekem/run-python-script-action@v1
+    #         #   with:
+    #         #     script: |
+    #         #       import json
+    #         #       print("theoretically loop through each one for deployment, but need to make these referencable from deployment? or somehow remake deployment all in python")
+    #         #       for item in json.loads("""${{secrets.CLIENTS}}"""):
+    #         #         print(item)
 
-            # this only works for single line entries "one" "two" "three"
-            - run: |
-                declare -a clients=(${{secrets.CLIENTS}})
-                for i in "${clients[@]}"
-                do
-                    echo "$i"
-                done
+    #         # this only works for single line entries "one" "two" "three"
+    #         - run: |
+    #             declare -a clients=(${{secrets.CLIENTS}})
+    #             for i in "${clients[@]}"
+    #             do
+    #                 echo "$i"
+    #             done
