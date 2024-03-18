@@ -43,6 +43,8 @@ jobs:
         strategy:
             matrix: 
                 enviro: ${{ fromJson(needs.getenvironments.outputs.enviros) }}
+                exclude: 
+                    - enviro: Develop
         runs-on: ubuntu-latest
         environment: ${{ matrix.enviro }}
         steps:
