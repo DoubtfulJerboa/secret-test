@@ -17,26 +17,24 @@ jobs:
                 pageNum=1
                 total=1
                 
-                # Fetching environments
                 while [ ${#environments[@]} -lt $total ]; do
                     res=$(curl -s -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -H "Authorization: Bearer ${{github.token}}" "https://api.github.com/repos/${{github.repository}}/environments?per_page=100&page=$pageNum")
                     
-                    # Extracting data
                     envs=($(echo "$res" | jq -r '.environments[].name'))
                     total=$(echo "$res" | jq -r '.total_count')
                     
-                    # Error handling
                     if [ ${#envs[@]} -eq 0 ]; then
                         echo "An error has occurred while attempting to fetch the environments"
                         exit 1
                     fi
                     
-                    # Appending environments
                     environments+=("${envs[@]}")
                     ((pageNum++))
                 done
                 
-                echo $(printf '%s\n' "${environments[@]}" | jq -R . | jq -sc .) >> "$GITHUB_OUTPUT"
+                envlist=$(printf '%s\n' "${environments[@]}" | jq -R . | jq -sc .) >> "$GITHUB_OUTPUT"
+
+                echo enviros=$envlist >> $GITHUB_OUTPUT
 
     matrixenvironments:
         needs: getenvironments
