@@ -20,8 +20,8 @@ jobs:
         # this would then have every customer as an environment within the repo, with all their secrets per environment
         strategy:
             matrix: 
-                # enviro: ${{ needs.getenvironments.outputs.enviros }}
-                enviro: ["Enviro1", "Customer"]
+                enviro: ${{ fromJson(needs.getenvironments.outputs.enviros) }}
+                # enviro: ["Enviro1", "Customer"]
         runs-on: ubuntu-latest
         environment: ${{ matrix.enviro }}
         steps:
