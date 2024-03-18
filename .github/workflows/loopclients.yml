@@ -36,8 +36,8 @@ jobs:
                     ((pageNum++))
                 done
                 
-                printf '%s\n' "${environments[@]}" | jq -R . | jq -sc . >> "$GITHUB_OUTPUT"
-                
+                echo $(printf '%s\n' "${environments[@]}" | jq -R . | jq -sc .) >> "$GITHUB_OUTPUT"
+
     matrixenvironments:
         needs: getenvironments
         # this method is able to repeat the job for every environment
