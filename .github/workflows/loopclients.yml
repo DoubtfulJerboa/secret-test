@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-latest
         # environment: ${{ matrix.enviro }}
         steps:
-            - run: echo '${{needs.getenvironments.outputs.enviros}}'
+            - run: echo '${{needs.getenvironments.outputs}}'
     # secretstoenv:
     #     runs-on: ubuntu-latest
     #     steps:
