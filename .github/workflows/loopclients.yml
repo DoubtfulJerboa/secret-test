@@ -9,7 +9,7 @@ jobs:
     getenvironments:
         runs-on: ubuntu-latest
         outputs: 
-            enviros: ${{steps.getenvs.outputs.envs}}
+            enviros: ${{ toJson(steps.getenvs.outputs.envs) }}
         steps:
             - id: getenvs
               run: |
