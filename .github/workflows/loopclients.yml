@@ -34,7 +34,7 @@ jobs:
                 
                 envlist=$(printf '%s\n' "${environments[@]}" | jq -R . | jq -sc .) >> "$GITHUB_OUTPUT"
 
-                echo enviros=$envlist >> $GITHUB_OUTPUT
+                echo "enviros=$envlist" >> $GITHUB_OUTPUT
 
                 cat $GITHUB_OUTPUT
 
