@@ -11,7 +11,7 @@ jobs:
         # this would then have every customer as an environment within the repo, with all their secrets per environment
         strategy:
             matrix: 
-                enviro: ["Enviro1", "Customer"]
+                enviro: ${{ github.event.deployment.environment }} #["Enviro1", "Customer"]
         runs-on: ubuntu-latest
         environment: ${{ matrix.enviro }}
         steps:
