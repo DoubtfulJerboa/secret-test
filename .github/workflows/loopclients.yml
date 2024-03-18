@@ -9,7 +9,7 @@ jobs:
     getenvironments:
         runs-on: ubuntu-latest
         outputs: 
-            enviros: ${{ toJson(steps.getenvs.outputs.envs) }}
+            enviros: ${{ steps.getenvs.outputs.envs }}
         steps:
             - id: getenvs
               run: |
@@ -20,7 +20,7 @@ jobs:
         # this would then have every customer as an environment within the repo, with all their secrets per environment
         strategy:
             matrix: 
-                enviro: ${{ needs.getenvironments.outputs.enviros }}
+                enviro: '[{"include": ${{ toJson(needs.getenvironments.outputs.enviros) }}}]'
         runs-on: ubuntu-latest
         environment: ${{ matrix.enviro }}
         steps:
@@ -35,15 +35,15 @@ jobs:
     #           env:
     #             ALLSECRETS: ${{ toJson(secrets) }}
     #             CLIENTS: ${{toJson(secrets.CLIENTSJSON)}}
-    # job1:
-    #     runs-on: ubuntu-latest
-    #     outputs:
-    #       matrix: ${{ steps.set-matrix.outputs.matrix }}
-    #     steps:
-    #       - id: set-matrix
-    #         env:
-    #             CLIENTJSON: ${{vars.CLIENTJSON}}
-    #         run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
+    job1:
+        runs-on: ubuntu-latest
+        outputs:
+          matrix: ${{ steps.set-matrix.outputs.matrix }}
+        steps:
+          - id: set-matrix
+            env:
+                CLIENTJSON: ${{vars.CLIENTJSON}}
+            run: echo 'matrix=${{env.CLIENTJSON}}' >> $GITHUB_OUTPUT
     
     # matrixotest:
     #     # needs: job1
