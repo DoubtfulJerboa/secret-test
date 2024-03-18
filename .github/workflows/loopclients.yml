@@ -20,7 +20,7 @@ jobs:
         # this would then have every customer as an environment within the repo, with all their secrets per environment
         strategy:
             matrix: 
-                enviro: '[{"include": ${{ toJson(needs.getenvironments.outputs.enviros) }}}]'
+                enviro: '[{"include": ${{ needs.getenvironments.outputs.enviros }}}]'
         runs-on: ubuntu-latest
         environment: ${{ matrix.enviro }}
         steps:
