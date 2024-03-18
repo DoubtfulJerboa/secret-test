@@ -18,13 +18,13 @@ jobs:
         needs: getenvironments
         # this method is able to repeat the job for every environment
         # this would then have every customer as an environment within the repo, with all their secrets per environment
-        # strategy:
-        #     matrix: 
-        #         enviro: ${{ needs.getenvironments.outputs.enviros }}
+        strategy:
+            matrix: 
+                enviro: ${{ needs.getenvironments.outputs.enviros }}
         runs-on: ubuntu-latest
-        # environment: ${{ matrix.enviro }}
+        environment: ${{ matrix.enviro }}
         steps:
-            - run: echo '${{needs.getenvironments.outputs.enviros}}'
+            - run: echo '${{ secrets.SECRET }}'
     # secretstoenv:
     #     runs-on: ubuntu-latest
     #     steps:
